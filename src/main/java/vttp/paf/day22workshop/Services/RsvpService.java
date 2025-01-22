@@ -21,4 +21,20 @@ public class RsvpService {
     public List<Rsvp> getAllRsvpsByName(String name){
         return rsvpRepository.getAllRsvpByName(name);
     }
+
+    public boolean addNewRsvp(Rsvp rsvp){
+        return rsvpRepository.addNewRsvp(rsvp);
+    }
+
+    public Rsvp getRsvpByEmail(String email){
+        return rsvpRepository.getRsvpByEmail(email);
+    }
+    
+    public boolean updateNewRsvp(Rsvp rsvp){
+        return rsvpRepository.updateRsvp(rsvp);
+    }
+
+    public int getRsvpCount(){
+        return rsvpRepository.getRsvpCount();
+    }
 }
