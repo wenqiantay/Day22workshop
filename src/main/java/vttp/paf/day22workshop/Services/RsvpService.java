@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vttp.paf.day22workshop.Repository.RsvpRepository;
+import vttp.paf.day22workshop.models.RecordNotFoundException;
 import vttp.paf.day22workshop.models.Rsvp;
 
 @Service
@@ -27,7 +28,7 @@ public class RsvpService {
     }
 
     public Rsvp getRsvpByEmail(String email){
-        return rsvpRepository.getRsvpByEmail(email);
+        return rsvpRepository.getRsvpByEmail(email).orElseThrow(() -> new RecordNotFoundException("Rsvp not found"));
     }
     
     public boolean updateNewRsvp(Rsvp rsvp){

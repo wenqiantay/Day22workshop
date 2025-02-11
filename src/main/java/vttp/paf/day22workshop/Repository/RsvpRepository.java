@@ -2,6 +2,7 @@ package vttp.paf.day22workshop.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -62,19 +63,19 @@ public class RsvpRepository {
                 rsvp.getConfirmationDate(), rsvp.getComments()) > 0;
     }
 
-    public Rsvp getRsvpByEmail(String email) {
+    public Optional<Rsvp> getRsvpByEmail(String email) {
         String sql = "SELECT * FROM rsvp WHERE email = ?";
-        Rsvp rsvp = null;
 
         try {
-
-            rsvp = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Rsvp.class), email);
-
+            // If the row is found, return it wrapped in an Optional
+            Rsvp rsvp = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Rsvp.class), email);
+            return Optional.ofNullable(rsvp); 
+            
         } catch (EmptyResultDataAccessException e) {
 
-            rsvp = null;
+            // If no result is found, return an empty Optional
+            return Optional.empty();
         }
-        return rsvp;
     }
 
     public Boolean updateRsvp(Rsvp rsvp) {

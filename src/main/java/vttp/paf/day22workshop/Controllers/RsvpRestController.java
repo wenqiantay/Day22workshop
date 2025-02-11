@@ -84,7 +84,10 @@ public class RsvpRestController {
 
         Boolean updatedRsvp = rsvpService.updateNewRsvp(existingRsvp);
         
+
         return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(updatedRsvp);
+        
+
     
     }
 
